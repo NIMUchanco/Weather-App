@@ -1,8 +1,9 @@
 console.log('weather_app is loaded');
 
-//My API Key = f00002b4a94af502e885f0eed608f047
+import { API_KEY } from './config.js';
+
 //url = "https://api.openweathermap.org/data/2.5/weather?q=Montreal&appid=f00002b4a94af502e885f0eed608f047&units=metric";
-url = "https://api.openweathermap.org/data/2.5/weather?lat=45.5071018&lon=-73.5874071&appid=f00002b4a94af502e885f0eed608f047&units=metric";
+const url = "https://api.openweathermap.org/data/2.5/weather?lat=45.5071018&lon=-73.5874071&appid=${API_KEY}&units=metric";
 
 async function getWeather(url){
     const response = await fetch(url);
@@ -57,7 +58,7 @@ function displayWeather(data){
     section.appendChild(article);
 
     //Loop for Highest and Lowest Temp
-    for(i = 0; i < tempArray.length; i++){
+    for(let i = 0; i < tempArray.length; i++){
         console.log(tempArray[i]);
         let div = document.createElement('div');
         div.innerHTML = Math.round(data.main[tempArray[i]]) + "°C";
@@ -65,7 +66,7 @@ function displayWeather(data){
         div.classList.add('temp2');
     }
 
-    for(i = 0; i < tempArray.length; i++){
+    for(let i = 0; i < tempArray.length; i++){
         let p = document.createElement('p');
         if (i === tempArray.indexOf("temp_max")) {
             p.innerHTML = "highest";
@@ -82,7 +83,7 @@ function displayWeather(data){
     const additionalDivs = [`${data.main.humidity}%`, `${Math.round(data.main.feels_like)}°C`];
     const additionalLabels = ["humidity", "feeling temperature"];
 
-    for (i = 0; i < additionalDivs.length; i++) {
+    for (let i = 0; i < additionalDivs.length; i++) {
         let div = document.createElement('div');
         div.innerHTML = data.main[additionalDivs[i]];
         article.appendChild(div);
@@ -90,7 +91,7 @@ function displayWeather(data){
         div.innerHTML = additionalDivs[i];
     }
 
-    for (i = 0; i < additionalDivs.length; i++) {
+    for (let i = 0; i < additionalDivs.length; i++) {
         let p = document.createElement('p');
         article.appendChild(p);
         p.classList.add('temp2-txt');
